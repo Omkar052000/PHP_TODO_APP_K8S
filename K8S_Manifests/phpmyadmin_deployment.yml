@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phpmyadmin-app
+  labels:
+    app: phpmyadmin-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: phpmyadmin-app
+  template:
+    metadata:
+      labels:
+        app: phpmyadmin-app
+    spec:
+      containers:
+      - name: phpmyadmin-app-ctr
+        image: phpmyadmin:latest
+        env:
+          - name: PMA_HOST
+            value: "10.105.182.175"
+          - name: PMA_PORT
+            value: "3306"
+          - name: PMA_USER
+            value: "admin"
+          - name: PMA_PASSWORD
+            value: "admin"
+        ports:
+        - containerPort: 3306
+        imagePullPolicy: Always
